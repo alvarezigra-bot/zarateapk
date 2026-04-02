@@ -650,7 +650,7 @@ function ModalImport({ barrioNombre, barrioId, onImport, onClose }) {
       });
       const resp = await fetch("https://api.anthropic.com/v1/messages",{
         method:"POST",
-        headers:{"Content-Type":"application/json","anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
+        headers:{"Content-Type":"application/json","anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true","x-api-key":"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"},
         body:JSON.stringify({
           model:"claude-sonnet-4-20250514",
           max_tokens:1000,
