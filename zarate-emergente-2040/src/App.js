@@ -648,23 +648,19 @@ function ModalImport({ barrioNombre, barrioId, onImport, onClose }) {
         r.onerror = rej;
         r.readAsDataURL(file);
       });
-      const resp = await fetch("https://api.anthropic.com/v1/messages",{
+      const GEMINI_KEY="gen-lang-client-0458421430";
+      const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`,{
         method:"POST",
-        headers:{"Content-Type":"application/json","anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true","x-api-key":"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"},
+        headers:{"Content-Type":"application/json"},
         body:JSON.stringify({
-          model:"claude-sonnet-4-20250514",
-          max_tokens:1000,
-          messages:[{
-            role:"user",
-            content:[
-              {type:"document",source:{type:"base64",media_type:"application/pdf",data:base64}},
-              {type:"text",text:"Analizá esta ficha barrial IPB y extraé los valores. Devolvé SOLO JSON sin texto extra:\n{\"scores\":{\"infra\":N,\"equidad\":N,\"ambient\":N,\"vida\":N,\"product\":N,\"gobern\":N}}\nDonde N es 1-5 (1=muy malo, 5=muy bueno). Si no hay dato usá 0."}
-            ]
-          }]
+          contents:[{parts:[
+            {inline_data:{mime_type:"application/pdf",data:base64}},
+            {text:"Analizá esta ficha barrial IPB. Devolvé SOLO JSON: {scores:{infra:N,equidad:N,ambient:N,vida:N,product:N,gobern:N}} donde N es 1-5. Sin dato usar 0."}
+          ]}]
         })
       });
       const data = await resp.json();
-      const text = data.content?.find(b=>b.type==="text")?.text||"{}";
+      const text = data.candidates?.[0]?.content?.parts?.[0]?.text||"{}";
       const clean = text.replace(/```json|```/g,"").trim();
       const parsed = JSON.parse(clean);
       const nuevos = {};
