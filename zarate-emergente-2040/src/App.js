@@ -113,7 +113,7 @@ const BARRIOS_LIST = [
   "SOLARES DEL CARMEN","STELLA MARIS",
   "UNION Y FE","UNION Y FUERZA","VICTORIA",
   "VILLA ANGUS","VILLA CARMENCITA","VILLA EUGENIA","VILLA FLORIDA",
-  "VILLA FOX","VILLA MASONI","VILLA SMITHFIELD","VIZA",
+  "VILLA FOX","VILLA MASSONI","VILLA SMITHFIELD","VIZA",
   "ZÁRATE","ZÁRATE GOLF PARK","ZÁRATE CHICO",
   "BOMBEROS","EL CABURE","ESTACION ESCALADA","LA EMILIA II",
   "LOS CAMPOS DE FRESNOS II","LOS PINOS",
@@ -635,6 +635,51 @@ function ModalImport({ barrioNombre, barrioId, onImport, onClose }) {
     e.target.value="";
   };
 
+
+  const handlePDF = async e => {
+    const file = e.target.files[0];
+    if(!file) return;
+    if(!barrioId){ alert("Seleccioná un barrio primero."); return; }
+    setCargando(true);
+    try {
+      const base64 = await new Promise((res,rej)=>{
+        const r = new FileReader();
+        r.onload = ()=>res(r.result.split(",")[1]);
+        r.onerror = rej;
+        r.readAsDataURL(file);
+      });
+      const resp = await fetch("https://api.anthropic.com/v1/messages",{
+        method:"POST",
+        headers:{"Content-Type":"application/json","anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
+        body:JSON.stringify({
+          model:"claude-sonnet-4-20250514",
+          max_tokens:1000,
+          messages:[{
+            role:"user",
+            content:[
+              {type:"document",source:{type:"base64",media_type:"application/pdf",data:base64}},
+              {type:"text",text:"Analizá esta ficha barrial IPB y extraé los valores. Devolvé SOLO JSON sin texto extra:\n{\"scores\":{\"infra\":N,\"equidad\":N,\"ambient\":N,\"vida\":N,\"product\":N,\"gobern\":N}}\nDonde N es 1-5 (1=muy malo, 5=muy bueno). Si no hay dato usá 0."}
+            ]
+          }]
+        })
+      });
+      const data = await resp.json();
+      const text = data.content?.find(b=>b.type==="text")?.text||"{}";
+      const clean = text.replace(/```json|```/g,"").trim();
+      const parsed = JSON.parse(clean);
+      const nuevos = {};
+      Object.entries(parsed.scores||{}).forEach(([k,v])=>{ if(v>0) nuevos[k]=v; });
+      if(!Object.keys(nuevos).length){ alert("No se pudieron extraer datos del PDF."); return; }
+      // Convertir scores de IA al formato de fichas
+      const fichaIA = {};
+      Object.entries(nuevos).forEach(([dim, val]) => { fichaIA[dim] = val; });
+      onImport(fichaIA, 1, "PDF-IA");
+      alert("✓ Datos extraídos por IA: "+Object.keys(nuevos).length+" dimensiones cargadas");
+      onClose();
+    } catch(err){ alert("Error: "+err.message); }
+    finally{ setCargando(false); }
+  };
+
   const handleDrive = async () => {
     if(!driveUrl.trim()){ alert("Pegá el enlace de Google Drive."); return; }
     const match = driveUrl.match(/\/d\/([a-zA-Z0-9_-]+)/)||driveUrl.match(/id=([a-zA-Z0-9_-]+)/);
@@ -712,7 +757,23 @@ function ModalImport({ barrioNombre, barrioId, onImport, onClose }) {
           </button>
         </div>
 
-        {/* Opción 1: Google Drive */}
+                  {/* PDF con IA */}
+          <div style={{background:"var(--s)",borderRadius:12,padding:"14px 16px",marginBottom:12,border:"1px solid var(--b)"}}>
+            <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:8}}>
+              <span style={{fontSize:22}}>🤖</span>
+              <div>
+                <div style={{color:"var(--t1)",fontSize:14,fontWeight:700}}>PDF con IA</div>
+                <div style={{color:"var(--t3)",fontSize:11}}>La IA extrae los indicadores automáticamente</div>
+              </div>
+            </div>
+            <label style={{display:"block",background:"#7C3AED",color:"white",borderRadius:8,padding:"10px 0",textAlign:"center",fontSize:13,fontWeight:700,cursor:barrioId?"pointer":"not-allowed",opacity:barrioId?1:0.5}}>
+              📄 Subir ficha PDF
+              <input type="file" accept=".pdf" onChange={handlePDF} style={{display:"none"}} disabled={!barrioId||cargando}/>
+            </label>
+            {!barrioId&&<div style={{color:"#F97316",fontSize:11,marginTop:6,textAlign:"center"}}>Seleccioná un barrio primero</div>}
+          </div>
+
+          {/* Opción 1: Google Drive */}
         <div style={{background:"var(--s2)",borderRadius:14,padding:16,marginBottom:12,border:"1px solid var(--b)"}}>
           <div style={{display:"flex",gap:10,alignItems:"center",marginBottom:10}}>
             <div style={{fontSize:24}}>🔗</div>
