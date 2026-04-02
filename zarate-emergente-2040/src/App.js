@@ -219,14 +219,14 @@ function Splash({ onDone }) {
         </div>
 
         {/* 2040 fondo */}
-        <div style={{position:"absolute",fontSize:"min(220px,55vw)",fontWeight:900,
+        <div style={{position:"absolute",fontSize:"min(160px,40vw)",fontWeight:900,
           fontFamily:"'Syne',sans-serif",color:"white",animation:"SPy 1s .1s ease both",
           lineHeight:1,userSelect:"none",pointerEvents:"none",letterSpacing:"-.03em"}}>
           2040
         </div>
 
         {/* ZÁRATE */}
-        <div style={{fontSize:"min(72px,18vw)",fontWeight:800,fontFamily:"'Syne',sans-serif",
+        <div style={{fontSize:"min(56px,12vw)",fontWeight:800,fontFamily:"'Syne',sans-serif",
           color:"white",letterSpacing:".08em",lineHeight:1,
           animation:"SPc .9s .35s ease both, GP 3s 1.8s ease infinite",
           position:"relative",zIndex:2}}>
