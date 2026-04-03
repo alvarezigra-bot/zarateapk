@@ -220,13 +220,13 @@ function Splash({ onDone }) {
 
         {/* 2040 fondo */}
         <div style={{position:"absolute",fontSize:"min(160px,40vw)",fontWeight:900,
-          fontFamily:"'Syne',sans-serif",color:"white",animation:"SPy 1s .1s ease both",
+          fontFamily:"'Arial Black',Arial,sans-serif",color:"white",animation:"SPy 1s .1s ease both",
           lineHeight:1,userSelect:"none",pointerEvents:"none",letterSpacing:"-.03em"}}>
           2040
         </div>
 
         {/* ZÁRATE */}
-        <div style={{fontSize:"min(56px,12vw)",fontWeight:800,fontFamily:"'Syne',sans-serif",
+        <div style={{fontSize:"min(56px,12vw)",fontWeight:800,fontFamily:"'Arial Black',Arial,sans-serif",
           color:"white",letterSpacing:".08em",lineHeight:1,
           animation:"SPc .9s .35s ease both, GP 3s 1.8s ease infinite",
           position:"relative",zIndex:2}}>
@@ -289,7 +289,7 @@ function Gauge({ ipb }) {
       })}
       <line x1={cx} y1={cy} x2={x} y2={y} stroke="var(--t1)" strokeWidth={2.5} strokeLinecap="round"/>
       <circle cx={cx} cy={cy} r={4.5} fill="var(--t1)"/>
-      <text x={cx} y={cy-14} textAnchor="middle" fill="var(--t1)" fontSize={22} fontWeight="800" fontFamily="'Syne',sans-serif">{ipb}</text>
+      <text x={cx} y={cy-14} textAnchor="middle" fill="var(--t1)" fontSize={22} fontWeight="800" fontFamily="'Arial Black',Arial,sans-serif">{ipb}</text>
       <text x={cx} y={cy-3} textAnchor="middle" fill={r.c} fontSize={7.5} fontFamily="'Inter',sans-serif" fontWeight="600">{r.l}</text>
     </svg>
   );
@@ -457,7 +457,7 @@ function MapaLeaflet({ barrios, activeId, onAssign, speak }) {
         boxShadow:"0 8px 32px rgba(27,79,216,.25)"}}>
         <div style={{color:"rgba(255,255,255,.5)",fontSize:10,letterSpacing:2,
           textTransform:"uppercase",fontWeight:600,marginBottom:2}}>Zárate Emergente · Mapa IPB</div>
-        <div style={{color:"white",fontSize:17,fontWeight:800,fontFamily:"'Syne',sans-serif",letterSpacing:"-.01em",marginBottom:12}}>
+        <div style={{color:"white",fontSize:17,fontWeight:800,fontFamily:"'Arial Black',Arial,sans-serif",letterSpacing:"-.01em",marginBottom:12}}>
           Georreferenciación de Barrios
         </div>
         {/* Buscador */}
@@ -736,7 +736,7 @@ function ModalImport({ barrioNombre, barrioId, onImport, onClose }) {
         {/* Header */}
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:20}}>
           <div>
-            <div style={{fontSize:20,fontWeight:800,fontFamily:"'Syne',sans-serif",color:"var(--t1)",letterSpacing:"-.01em"}}>
+            <div style={{fontSize:20,fontWeight:800,fontFamily:"'Arial Black',Arial,sans-serif",color:"var(--t1)",letterSpacing:"-.01em"}}>
               Importar Fichas IPB
             </div>
             {barrioNombre&&(
@@ -863,7 +863,7 @@ function ModalBarrio({ prefill="", onSave, onClose }) {
         <div style={{width:40,height:4,background:"var(--b)",borderRadius:2,margin:"16px auto 20px"}}/>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:24}}>
           <div>
-            <div style={{fontSize:20,fontWeight:800,fontFamily:"'Syne',sans-serif",letterSpacing:"-.01em"}}>Nuevo Barrio</div>
+            <div style={{fontSize:20,fontWeight:800,fontFamily:"'Arial Black',Arial,sans-serif",letterSpacing:"-.01em"}}>Nuevo Barrio</div>
             <div style={{color:"var(--t3)",fontSize:12,marginTop:2}}>Zárate Emergente · IPB</div>
           </div>
           <button className="hb" onClick={onClose}
@@ -922,7 +922,7 @@ function PanelA11y({ hc, setHc, lt, setLt, speak, stopSpeak, vox, setVox, listen
         <div style={{width:40,height:4,background:"var(--b)",borderRadius:2,margin:"16px auto 20px"}}/>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:20}}>
           <div>
-            <div style={{fontSize:19,fontWeight:800,fontFamily:"'Syne',sans-serif"}}>Accesibilidad</div>
+            <div style={{fontSize:19,fontWeight:800,fontFamily:"'Arial Black',Arial,sans-serif"}}>Accesibilidad</div>
             <div style={{color:"var(--t3)",fontSize:12}}>Adaptá la experiencia a tus necesidades</div>
           </div>
           <button className="hb" onClick={onClose}
@@ -1110,7 +1110,7 @@ export default function App() {
   const EP = (icon,title,sub,btnTxt,fn) => (
     <div style={{...card,textAlign:"center",padding:"44px 20px"}}>
       <div style={{fontSize:48,marginBottom:12}}>{icon}</div>
-      <div style={{color:"var(--t1)",fontWeight:800,fontSize:17,fontFamily:"'Syne',sans-serif",marginBottom:6}}>{title}</div>
+      <div style={{color:"var(--t1)",fontWeight:800,fontSize:17,fontFamily:"'Arial Black',Arial,sans-serif",marginBottom:6}}>{title}</div>
       <div style={{color:"var(--t3)",fontSize:13,marginBottom:24,lineHeight:1.6}}>{sub}</div>
       <BP onClick={fn}>{btnTxt}</BP>
     </div>
@@ -1147,7 +1147,7 @@ export default function App() {
             <div style={{color:"rgba(255,255,255,.45)",fontSize:9,letterSpacing:2,
               fontWeight:700,textTransform:"uppercase"}}>ONU-Hábitat · Zárate</div>
             <div style={{color:"white",fontSize:14,fontWeight:800,letterSpacing:"-.01em",
-              fontFamily:"'Syne',sans-serif",lineHeight:1.15,
+              fontFamily:"'Arial Black',Arial,sans-serif",lineHeight:1.15,
               whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>
               Zárate Emergente 2040
             </div>
@@ -1189,7 +1189,7 @@ export default function App() {
                 background:"radial-gradient(circle,rgba(27,79,216,.3),transparent 70%)"}}/>
               <div style={{color:"rgba(6,182,212,.9)",fontSize:10,fontWeight:700,letterSpacing:2,
                 textTransform:"uppercase",marginBottom:6,position:"relative"}}>Zárate Emergente</div>
-              <div style={{color:"white",fontSize:26,fontWeight:800,fontFamily:"'Syne',sans-serif",
+              <div style={{color:"white",fontSize:26,fontWeight:800,fontFamily:"'Arial Black',Arial,sans-serif",
                 letterSpacing:"-.02em",lineHeight:1.15,marginBottom:4,position:"relative"}}>
                 Índice de<br/>Prosperidad Barrial
               </div>
@@ -1204,7 +1204,7 @@ export default function App() {
                 ].map((k,i)=>(
                   <div key={i} style={{background:"rgba(255,255,255,.07)",borderRadius:12,
                     padding:"12px 10px",textAlign:"center",border:"1px solid rgba(255,255,255,.08)"}}>
-                    <div style={{color:k.c,fontSize:26,fontWeight:800,fontFamily:"'Syne',sans-serif"}}>{k.v}</div>
+                    <div style={{color:k.c,fontSize:26,fontWeight:800,fontFamily:"'Arial Black',Arial,sans-serif"}}>{k.v}</div>
                     <div style={{color:"rgba(255,255,255,.45)",fontSize:10,fontWeight:600,textTransform:"uppercase",letterSpacing:.8}}>{k.l}</div>
                   </div>
                 ))}
@@ -1246,7 +1246,7 @@ export default function App() {
                       background:"var(--s)",transition:"all .12s",cursor:"pointer"}}>
                     <div style={{width:38,height:38,borderRadius:10,background:b.rng.bg,
                       display:"flex",alignItems:"center",justifyContent:"center",
-                      color:b.rng.c,fontSize:14,fontWeight:800,fontFamily:"'Syne',sans-serif",flexShrink:0}}>
+                      color:b.rng.c,fontSize:14,fontWeight:800,fontFamily:"'Arial Black',Arial,sans-serif",flexShrink:0}}>
                       {b.ipb}
                     </div>
                     <div style={{flex:1,minWidth:0}}>
@@ -1276,7 +1276,7 @@ export default function App() {
                 <div>
                   <div style={{fontSize:9,letterSpacing:2,color:"var(--a)",fontWeight:700,
                     textTransform:"uppercase",marginBottom:3}}>Zárate Emergente · IPB</div>
-                  <div style={{fontSize:22,fontWeight:800,fontFamily:"'Syne',sans-serif",
+                  <div style={{fontSize:22,fontWeight:800,fontFamily:"'Arial Black',Arial,sans-serif",
                     color:"var(--t1)",letterSpacing:"-.02em"}}>Barrios</div>
                   <div style={{color:"var(--t3)",fontSize:12,marginTop:2}}>{barrios.length} barrios registrados</div>
                 </div>
@@ -1321,7 +1321,7 @@ export default function App() {
                           background:barrioId===b.id?"var(--s2)":"var(--s)",transition:"all .12s"}}>
                         <div style={{width:38,height:38,borderRadius:10,background:rb.rng.bg,
                           display:"flex",alignItems:"center",justifyContent:"center",
-                          color:rb.rng.c,fontSize:13,fontWeight:800,fontFamily:"'Syne',sans-serif",flexShrink:0}}>
+                          color:rb.rng.c,fontSize:13,fontWeight:800,fontFamily:"'Arial Black',Arial,sans-serif",flexShrink:0}}>
                           {rb.ipb||"·"}
                         </div>
                         <div style={{flex:1,minWidth:0}}>
@@ -1398,7 +1398,7 @@ export default function App() {
                   <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:10}}>
                     <div style={{flex:1,minWidth:0,paddingRight:10}}>
                       <div style={{color:"var(--t3)",fontSize:10,letterSpacing:1.5,textTransform:"uppercase",fontWeight:700,marginBottom:2}}>Zárate Emergente · IPB</div>
-                      <div style={{color:"var(--t1)",fontWeight:800,fontSize:17,fontFamily:"'Syne',sans-serif",
+                      <div style={{color:"var(--t1)",fontWeight:800,fontSize:17,fontFamily:"'Arial Black',Arial,sans-serif",
                         whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{barrio.nombre}</div>
                       <div style={{color:"var(--t3)",fontSize:12}}>{barrio.hogares.toLocaleString()} hogares</div>
                     </div>
@@ -1417,7 +1417,7 @@ export default function App() {
                         onChange={e=>setMuestra(p=>({...p,[barrioId]:parseInt(e.target.value)||0}))}
                         style={{width:"100%",padding:"9px 12px",border:"1.5px solid var(--b)",borderRadius:10,
                           fontSize:16,fontWeight:800,color:"var(--a)",textAlign:"center",
-                          fontFamily:"'Syne',sans-serif",background:"var(--s)",outline:"none"}}/>
+                          fontFamily:"'Arial Black',Arial,sans-serif",background:"var(--s)",outline:"none"}}/>
                     </div>
                     <button className="hb" onClick={()=>setShowImport(true)}
                       style={{background:"#059669",color:"white",border:"none",borderRadius:11,
@@ -1441,7 +1441,7 @@ export default function App() {
                           cursor:"pointer",textAlign:"center",fontFamily:"'Inter',sans-serif",transition:"all .15s"}}>
                         <div style={{fontSize:18}}>{d.icon}</div>
                         <div style={{color:dimId===d.id?"white":"var(--t3)",fontSize:10,fontWeight:700,marginTop:2}}>{d.short}</div>
-                        <div style={{color:dimId===d.id?"rgba(255,255,255,.8)":r.c,fontSize:15,fontWeight:800,fontFamily:"'Syne',sans-serif"}}>{sc||"—"}</div>
+                        <div style={{color:dimId===d.id?"rgba(255,255,255,.8)":r.c,fontSize:15,fontWeight:800,fontFamily:"'Arial Black',Arial,sans-serif"}}>{sc||"—"}</div>
                       </button>
                     );
                   })}
@@ -1457,11 +1457,11 @@ export default function App() {
                         <div style={{width:48,height:48,borderRadius:14,background:r.bg,
                           display:"flex",alignItems:"center",justifyContent:"center",fontSize:24,flexShrink:0}}>{dim.icon}</div>
                         <div style={{flex:1}}>
-                          <div style={{color:"var(--t1)",fontWeight:800,fontSize:16,fontFamily:"'Syne',sans-serif"}}>{dim.label}</div>
+                          <div style={{color:"var(--t1)",fontWeight:800,fontSize:16,fontFamily:"'Arial Black',Arial,sans-serif"}}>{dim.label}</div>
                           <div style={{color:"var(--t3)",fontSize:12}}>{dim.inds.length} indicadores</div>
                         </div>
                         <div style={{textAlign:"right"}}>
-                          <div style={{color:r.c,fontSize:28,fontWeight:800,fontFamily:"'Syne',sans-serif",lineHeight:1}}>{sc}</div>
+                          <div style={{color:r.c,fontSize:28,fontWeight:800,fontFamily:"'Arial Black',Arial,sans-serif",lineHeight:1}}>{sc}</div>
                           <span style={chip(r.c,r.bg)}>{r.l}</span>
                         </div>
                       </div>
@@ -1484,7 +1484,7 @@ export default function App() {
                           <div style={{position:"absolute",left:`${icp[dim.id]}%`,top:-5,width:2,height:20,background:"var(--t1)",borderRadius:1,transform:"translateX(-50%)"}}/>
                         </div>
                         <div style={{display:"flex",justifyContent:"space-between",marginTop:6}}>
-                          <span style={{color:r.c,fontWeight:800,fontSize:14,fontFamily:"'Syne',sans-serif"}}>{sc}/100</span>
+                          <span style={{color:r.c,fontWeight:800,fontSize:14,fontFamily:"'Arial Black',Arial,sans-serif"}}>{sc}/100</span>
                           <span style={{color:sc<icp[dim.id]?"var(--ar)":"var(--ag)",fontWeight:700,fontSize:12}}>
                             Brecha: {Math.abs(sc-icp[dim.id])} pts
                           </span>
@@ -1519,7 +1519,7 @@ export default function App() {
                     <div>
                       <div style={{color:"rgba(255,255,255,.5)",fontSize:10,fontWeight:700,
                         letterSpacing:1,textTransform:"uppercase"}}>IPB Final</div>
-                      <div style={{color:"white",fontWeight:800,fontSize:18,fontFamily:"'Syne',sans-serif",
+                      <div style={{color:"white",fontWeight:800,fontSize:18,fontFamily:"'Arial Black',Arial,sans-serif",
                         marginTop:2,marginBottom:4,lineHeight:1.2}}>{barrio.nombre}</div>
                       <span style={{...chip(rangoF.c,rangoF.bg)}}>{rangoF.l}</span>
                       <div style={{color:"rgba(255,255,255,.4)",fontSize:11,marginTop:8}}>
@@ -1566,7 +1566,7 @@ export default function App() {
                               </div>
                             </div>
                             <div style={{textAlign:"right",flexShrink:0}}>
-                              <div style={{color:r.c,fontWeight:800,fontSize:16,fontFamily:"'Syne',sans-serif"}}>{d.sc}</div>
+                              <div style={{color:r.c,fontWeight:800,fontSize:16,fontFamily:"'Arial Black',Arial,sans-serif"}}>{d.sc}</div>
                               <div style={{color:d.br>20?"var(--ar)":d.br>0?"var(--ay)":"var(--ag)",fontSize:11,fontWeight:700}}>
                                 {d.br>0?`▼${d.br}`:`▲${Math.abs(d.br)}`}
                               </div>
@@ -1611,7 +1611,7 @@ export default function App() {
                     <div key={d.id} style={{marginBottom:12}}>
                       <div style={{display:"flex",justifyContent:"space-between",marginBottom:4}}>
                         <span style={{color:"var(--t2)",fontSize:12,fontWeight:500}}>{d.icon} {d.label}</span>
-                        <span style={{color:"var(--a)",fontWeight:700,fontSize:13,fontFamily:"'Syne',sans-serif"}}>{icp[d.id]}</span>
+                        <span style={{color:"var(--a)",fontWeight:700,fontSize:13,fontFamily:"'Arial Black',Arial,sans-serif"}}>{icp[d.id]}</span>
                       </div>
                       <input type="range" min={0} max={100} value={icp[d.id]}
                         onChange={e=>setIcp(p=>({...p,[d.id]:parseInt(e.target.value)}))}/>
