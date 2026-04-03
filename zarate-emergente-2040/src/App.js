@@ -660,7 +660,9 @@ function ModalImport({ barrioNombre, barrioId, onImport, onClose }) {
         })
       });
       const data = await resp.json();
-      const text = data.candidates?.[0]?.content?.parts?.[0]?.text||"{}";
+      const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text||"{}";
+      const jsonMatch = rawText.match(/\{[\s\S]*\}/);
+      const text = jsonMatch ? jsonMatch[0] : "{}";
       const clean = text.replace(/```json|```/g,"").trim();
       const parsed = JSON.parse(clean);
       const nuevos = {};
