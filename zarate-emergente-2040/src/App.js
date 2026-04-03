@@ -642,39 +642,34 @@ function ModalImport({ barrioNombre, barrioId, onImport, onClose }) {
     if(!barrioId){ alert("Seleccioná un barrio primero."); return; }
     setCargando(true);
     try {
-      // Cargar pdf.js desde CDN
-      if(!window.pdfjsLib){
-        await new Promise((res,rej)=>{
-          const s=document.createElement("script");
-          s.src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
-          s.onload=res; s.onerror=rej; document.head.appendChild(s);
-        });
-        window.pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
-      }
-      const ab = await file.arrayBuffer();
-      const pdf = await window.pdfjsLib.getDocument({data:ab}).promise;
-      let fullText = "";
-      for(let i=1;i<=Math.min(pdf.numPages,5);i++){
-        const page = await pdf.getPage(i);
-        const content = await page.getTextContent();
-        fullText += content.items.map(it=>it.str).join(" ") + "\n";
-      }
+      const base64 = await new Promise((res,rej)=>{
+        const r = new FileReader();
+        r.onload = ()=>res(r.result.split(",")[1]);
+        r.onerror = rej;
+        r.readAsDataURL(file);
+      });
       const GEMINI_KEY="AIzaSyDMDjZm5M-xTvuB8E2_jIW1RUiZt_Fia3Q";
-      const prompt = "Del siguiente informe IPB extraé los puntajes por dimension en escala 0-100 y convertilos a escala 1-5 dividiendo por 20 y redondeando. Devolvé SOLO JSON sin texto extra: {scores:{infra:N,equidad:N,ambient:N,vida:N,product:N,gobern:N}} donde N es 1-5. Texto del informe: " + fullText.slice(0,4000);
       const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`,{
         method:"POST",
         headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})
+        body:JSON.stringify({contents:[{parts:[
+          {inline_data:{mime_type:"application/pdf",data:base64}},
+          {text:"Extraé los puntajes de las 6 dimensiones IPB de este informe. Los valores estan en escala 0-100, convertilos a 1-5 dividiendo por 20 y redondeando. Devolvé SOLO este JSON: {scores:{infra:N,equidad:N,ambient:N,vida:N,product:N,gobern:N}}"}
+        ]}]})
       });
       const data = await resp.json();
-      const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text||"{}";
-      const jsonMatch = rawText.match(/\{[\s\S]*\}/);
-      const parsed = JSON.parse(jsonMatch?jsonMatch[0]:"{}");
+      if(data.error){ alert("Gemini error: "+data.error.message); return; }
+      const raw = data.candidates?.[0]?.content?.parts?.[0]?.text||"{}";
+      const m = raw.replace(/```json|```/g,"").match(/\{[\s\S]*\}/);
+      const parsed = m ? JSON.parse(m[0]) : {};
       const nuevos = {};
-      Object.entries(parsed.scores||{}).forEach(([k,v])=>{ if(v>0) nuevos[k]=Math.min(5,Math.max(1,Math.round(Number(v)))); });
-      if(!Object.keys(nuevos).length){ alert("No se pudieron extraer datos del PDF."); return; }
-      onImport(nuevos, 1, "PDF-IA");
-      alert("✓ Datos cargados por IA: "+Object.keys(nuevos).length+" dimensiones");
+      Object.entries(parsed.scores||{}).forEach(([k,v])=>{
+        const n=Math.round(Number(v));
+        if(n>0) nuevos[k]=Math.min(5,Math.max(1,n));
+      });
+      if(!Object.keys(nuevos).length){ alert("Sin datos en PDF. Respuesta IA: "+raw.slice(0,200)); return; }
+      onImport(nuevos,1,"PDF-IA");
+      alert("Datos cargados: "+Object.keys(nuevos).length+" dimensiones OK");
       onClose();
     } catch(err){ alert("Error: "+err.message); }
     finally{ setCargando(false); }
