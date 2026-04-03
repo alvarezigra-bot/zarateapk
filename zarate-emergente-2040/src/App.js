@@ -648,7 +648,7 @@ function ModalImport({ barrioNombre, barrioId, onImport, onClose }) {
         r.onerror = rej;
         r.readAsDataURL(file);
       });
-      const GEMINI_KEY="gen-lang-client-0458421430";
+      const GEMINI_KEY="AIzaSyDMDjZm5M-xTvuB8E2_jIW1RUiZt_Fia3Q";
       const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`,{
         method:"POST",
         headers:{"Content-Type":"application/json"},
